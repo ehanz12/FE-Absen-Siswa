@@ -30,6 +30,8 @@ export const authAPI = {
     }
 
     localStorage.setItem("authToken", token);
+    // mirror ke cookie utk middleware
+    document.cookie = `authToken=${token}; path=/`;
 
     return {
       message: data.message,
@@ -98,6 +100,7 @@ export const authAPI = {
     } finally {
       localStorage.removeItem("authToken");
       localStorage.removeItem("user");
+      document.cookie = "authToken=; path=/; max-age=0";
     }
   },
 };
